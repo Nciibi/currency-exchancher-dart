@@ -1,0 +1,26 @@
+# Flutter Currency Converter App
+# This file defines the project dependencies and metadata.
+name: currency_converter
+description: A simple currency converter app for beginners.
+
+# Dart SDK version constraint
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+# Project dependencies
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Material Design icons
+  cupertino_icons: ^1.0.6
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+# Flutter-specific configuration
+flutter:
+  uses-material-design: true
