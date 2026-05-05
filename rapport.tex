@@ -1,0 +1,133 @@
+\documentclass[12pt,a4paper]{article}
+
+% --- Packages ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+
+% --- Configuration de la page ---
+\geometry{a4paper, margin=2.5cm}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{Convertisseur de Devises}
+\lhead{Rapport de Projet Mobile}
+\cfoot{\thepage}
+
+% --- Espacement ---
+\setstretch{1.2}
+
+% --- Titre ---
+\title{
+    \vspace{2cm}
+    \textbf{\Huge Rapport de Projet Mobile} \\
+    \vspace{0.5cm}
+    \Large Développement d'une Application de Conversion de Devises \\ avec Flutter
+    \vspace{2cm}
+}
+\author{\textbf{Nciibi}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty} % Pas d'en-tête sur la page de garde
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+% ==========================================
+\section{Présentation du Projet}
+% ==========================================
+
+Dans le cadre de l'apprentissage et de la pratique du développement d'applications mobiles, ce projet consiste en la conception et la réalisation d'une application de \textbf{Conversion de Devises}. 
+
+L'objectif principal est de fournir aux utilisateurs un outil simple, rapide et intuitif permettant de convertir instantanément des montants entre plusieurs devises majeures (Dollar américain, Euro, Livre sterling, Yen japonais, Dollar canadien et Dinar tunisien). 
+
+Pour relever ce défi, le choix technologique s'est porté sur \textbf{Flutter}, le framework de développement d'interface utilisateur (UI) open-source créé par Google, associé au langage de programmation \textbf{Dart}. Ce choix est justifié par la capacité de Flutter à créer des applications compilées nativement pour le web, les mobiles et les ordinateurs de bureau à partir d'une seule base de code, tout en offrant d'excellentes performances et une grande flexibilité en matière de design (Material Design 3).
+
+L'application a été pensée pour être "User-Friendly", avec une attention particulière portée sur la fluidité des interactions et l'esthétique générale de l'interface.
+
+% ==========================================
+\section{Architecture et Diagramme de l'Application}
+% ==========================================
+
+L'architecture de l'application est conçue autour du modèle de gestion d'état interne de Flutter, en utilisant principalement des \texttt{StatefulWidget}. Étant donné qu'il s'agit d'une application simple (sans backend complexe pour le moment), la logique de calcul et les données (taux de change) sont intégrées directement dans le composant principal.
+
+\subsection{Schéma Fonctionnel}
+
+Le schéma suivant illustre le flux de données simple au sein de l'application, depuis l'interaction de l'utilisateur jusqu'à l'affichage du résultat.
+
+\begin{center}
+\begin{tikzpicture}[
+    box/.style={draw, rectangle, rounded corners, minimum width=3.5cm, minimum height=1cm, text centered, font=\sffamily, thick},
+    arrow/.style={thick, ->, >=stealth}
+]
+
+% Nodes
+\node (ui) [box, fill=blue!10] {Interface Utilisateur (UI)};
+\node (input) [box, fill=green!10, below of=ui, yshift=-1.5cm, xshift=-3cm] {Saisie Montant \& Devises};
+\node (state) [box, fill=orange!10, below of=ui, yshift=-1.5cm, xshift=3cm] {Mise à jour de l'État (State)};
+\node (logic) [box, fill=red!10, below of=state, yshift=-1.5cm] {Logique de Conversion (Taux en dur)};
+
+% Arrows
+\draw [arrow] (ui) -- node[anchor=east] {Action} (input);
+\draw [arrow] (input) -- node[anchor=north] {Événement (onChange)} (state);
+\draw [arrow] (state) -- node[anchor=west] {Calcul} (logic);
+\draw [arrow] (logic.west) -| node[anchor=east, yshift=1cm] {Nouveau Résultat} (ui.south);
+
+\end{tikzpicture}
+\end{center}
+
+\textbf{Description du flux :}
+\begin{enumerate}
+    \item L'utilisateur interagit avec l'interface (saisie d'un montant, sélection d'une devise dans les menus déroulants, ou appui sur le bouton d'inversion).
+    \item L'événement déclenche la fonction \texttt{setState()} de Flutter.
+    \item La logique de conversion est appelée. Elle utilise des taux de change prédéfinis en dur par rapport au Dollar américain (USD) pour calculer le nouveau montant.
+    \item L'interface graphique est automatiquement reconstruite par Flutter pour afficher le montant converti en temps réel.
+\end{enumerate}
+
+% ==========================================
+\section{Fonctionnalités Principales}
+% ==========================================
+
+L'application intègre plusieurs fonctionnalités clés visant à maximiser l'ergonomie et l'efficacité :
+
+\begin{itemize}
+    \item \textbf{Conversion en Temps Réel :} Contrairement aux applications traditionnelles nécessitant de cliquer sur un bouton "Convertir", le calcul s'effectue instantanément à chaque frappe sur le clavier.
+    \item \textbf{Gestion Multi-Devises :} Prise en charge de 6 monnaies courantes, identifiées visuellement par des emojis de drapeaux (🇺🇸 USD, 🇪🇺 EUR, 🇬🇧 GBP, 🇯🇵 JPY, 🇨🇦 CAD, 🇹🇳 TND).
+    \item \textbf{Inversion Rapide (Swap) :} Un bouton central permet d'inverser d'un simple clic la devise source et la devise cible, tout en recalculant automatiquement le résultat.
+    \item \textbf{Validation de Saisie Intelligente :} Le champ de texte empêche la saisie de caractères non numériques et gère intelligemment les points décimaux pour éviter les erreurs d'application.
+    \item \textbf{Boutons de Montants Rapides (Quick Picks) :} Des "chips" prédéfinis (1, 10, 50, 100...) permettent à l'utilisateur de tester rapidement des conversions sans utiliser le clavier.
+    \item \textbf{Interface Material Design 3 :} Une interface moderne, épurée et adaptative, basée sur les dernières recommandations de Google en matière de design.
+\end{itemize}
+
+% ==========================================
+\section{Perspectives et Améliorations Futures}
+% ==========================================
+
+Bien que fonctionnelle, cette première version constitue une base solide (Minimum Viable Product) qui a vocation à être enrichie. Plusieurs axes d'amélioration sont envisagés pour les versions ultérieures :
+
+\begin{itemize}
+    \item \textbf{Intégration d'une API REST (Temps Réel) :} Actuellement, les taux de change sont fixés en dur dans le code. La prochaine étape majeure consistera à intégrer une API externe (comme \textit{ExchangeRate-API} ou \textit{Fixer.io}) via le package \texttt{http} pour récupérer les taux du marché en temps réel de manière dynamique.
+    \item \textbf{Gestion du Mode Hors-ligne (Offline) :} Si l'API est intégrée, il sera crucial de mettre en cache les derniers taux récupérés (en utilisant \texttt{SharedPreferences} ou \texttt{sqflite}) afin de permettre à l'utilisateur de continuer à utiliser l'application sans connexion Internet.
+    \item \textbf{Élargissement du Panel de Devises :} Ajouter une liste exhaustive de toutes les monnaies mondiales avec une fonctionnalité de recherche intégrée au menu déroulant.
+    \item \textbf{Historique des Conversions :} Implémenter une page dédiée permettant de consulter les conversions récemment effectuées.
+    \item \textbf{Thème Sombre (Dark Mode) :} Ajouter un basculeur (toggle) permettant à l'utilisateur de choisir entre un thème clair et un thème sombre pour un meilleur confort visuel la nuit.
+\end{itemize}
+
+% ==========================================
+\section{Conclusion}
+% ==========================================
+
+Ce projet de convertisseur de devises a été une excellente opportunité pour mettre en pratique les fondamentaux de Flutter et de Dart. De la création de composants d'interface utilisateur réactifs à la gestion de l'état interne, l'application répond parfaitement au besoin initial d'un outil de conversion simple. Les perspectives d'évolution identifiées, notamment la connexion à une API, permettront de transformer ce projet d'apprentissage en une application de qualité professionnelle.
+
+\end{document}
