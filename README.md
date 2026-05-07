@@ -9,7 +9,7 @@ A clean, modern, and beginner-friendly currency converter application built with
   - 🇺🇸 USD (US Dollar)
   - 🇪🇺 EUR (Euro)
   - 🇬🇧 GBP (British Pound)
-  - 🇯🇵 JPY (Japanese Yen)
+  - 🇯🇵 JPY (Japanese Yen)     
   - 🇨🇦 CAD (Canadian Dollar)
   - 🇹🇳 TND (Tunisian Dinar - listed as DT)
 - **Currency Swapping**: Easily swap "From" and "To" currencies with a single tap.
