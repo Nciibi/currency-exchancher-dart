@@ -13,16 +13,8 @@ class DemoPage extends StatefulWidget {
 class _DemoPageState
     extends State<DemoPage> {
 
-  // =========================
-  // FORM KEY
-  // =========================
-
   final _formKey =
       GlobalKey<FormState>();
-
-  // =========================
-  // CONTROLLERS
-  // =========================
 
   final TextEditingController
       nameController =
@@ -32,24 +24,13 @@ class _DemoPageState
       ageController =
       TextEditingController();
 
-  // =========================
-  // LOADING STATE
-  // =========================
-
   bool isLoading = false;
 
-  // =========================
-  // FIREBASE REFERENCE
-  // =========================
 
   final DatabaseReference ref =
       FirebaseDatabase.instance
           .ref("user");
-
-  // =========================
-  // CREATE DATA
-  // =========================
-
+          
   Future<void> createData() async {
 
     await ref.set({
