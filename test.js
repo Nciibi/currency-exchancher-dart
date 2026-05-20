@@ -7,9 +7,7 @@ admin.initializeApp({
 const db = admin.firestore();
 const app = express();
 app.use(express.json());
-// ==========================================
-// ROUTE 1 -> HOME
-// ==========================================
+//
 app.get("/", (req, res) => {
   res.send("Firebase server working");
 });
