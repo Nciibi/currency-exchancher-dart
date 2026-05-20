@@ -9,10 +9,7 @@ const app = express();
 app.use(express.json());
 //
 
-// ==========================================
-// ROUTE 2 -> CREATE USER
-// POST /users
-// ==========================================
+
 app.post("/users", async (req, res) => {
   try {
     const user = {
