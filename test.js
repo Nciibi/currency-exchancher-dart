@@ -8,9 +8,7 @@ const db = admin.firestore();
 const app = express();
 app.use(express.json());
 //
-app.get("/", (req, res) => {
-  res.send("Firebase server working");
-});
+
 // ==========================================
 // ROUTE 2 -> CREATE USER
 // POST /users
