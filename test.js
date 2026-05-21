@@ -9,7 +9,6 @@ const app = express();
 app.use(express.json());
 //
 
-
 app.post("/users", async (req, res) => {
   try {
     const user = {
