@@ -7,7 +7,6 @@ admin.initializeApp({
 const db = admin.firestore();
 const app = express();
 app.use(express.json());
-//
 
 app.post("/users", async (req, res) => {
   try {
