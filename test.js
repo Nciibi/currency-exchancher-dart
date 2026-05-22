@@ -6,7 +6,6 @@ admin.initializeApp({
 }); 
 
 
-
 const db = admin.firestore();
 const app = express();
 app.use(express.json());
